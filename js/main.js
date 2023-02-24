@@ -56,10 +56,11 @@ submitButton.addEventListener("click", (e) => {
   const playerTwo = document.querySelector("#playerTwo").value.trim();
 
   if (gameMode === "1") {
-    players[0].player_name = playerOne ?? "Player 1";
-    players[1].player_name = playerTwo ?? "Player 2";
+    players[0].player_name = playerOne !== "" ? playerOne : "Player 1";
+    players[1].player_name = playerTwo !== "" ? playerTwo : "Player 2";
+    randomTurn();
   } else {
-    players[0].player_name = playerOne ?? "Player 1";
+    players[0].player_name = playerOne !== "" ? playerOne : "Player 1";
     players[1].player_name = "Computer";
   }
 
@@ -69,7 +70,6 @@ submitButton.addEventListener("click", (e) => {
   document.querySelector(".radio-input:checked").checked = false;
 
   countPlayersScores();
-  randomTurn();
   gameTurnMessage();
 });
 
@@ -85,7 +85,8 @@ resetButton.addEventListener("click", () => {
   isFinish = false;
   boardTiles = ["", "", "", "", "", "", "", "", ""];
 
-  randomTurn();
+  gameMode === "1" ? randomTurn() : "";
+  gameMode === "2" ? (currentTurn = 0) : "";
   gameTurnMessage();
 
   document.querySelectorAll(".cells").forEach((cell) => (cell.innerHTML = ""));
@@ -156,13 +157,56 @@ document.querySelectorAll(".cells").forEach((cell) =>
     )
       return;
 
-    let dataCellIndex = eval(e.target.getAttribute("data-cell-index"));
+    if (gameMode === "1") {
+      let dataCellIndex = eval(e.target.getAttribute("data-cell-index"));
 
-    if (boardTiles[dataCellIndex] !== "" || isFinish) return;
+      if (boardTiles[dataCellIndex] !== "" || isFinish) return;
 
-    fillCellsHandler(e.target, dataCellIndex);
+      fillCellsHandler(e.target, dataCellIndex);
 
-    checkWinnerGame();
+      checkWinnerGame();
+    }
+
+    if (gameMode === "2") {
+      currentTurn = 0;
+
+      let dataCellIndex = eval(e.target.getAttribute("data-cell-index"));
+
+      if (boardTiles[dataCellIndex] !== "" || isFinish) return;
+
+      fillCellsHandler(e.target, dataCellIndex);
+
+      checkWinnerGame();
+
+      currentTurn = 1;
+
+      let cpuSelect = Math.floor(Math.random() * 9);
+
+      if (boardTiles[cpuSelect] === "") {
+        if (isFinish) return;
+
+        fillCellsHandler(
+          document.querySelectorAll(".cells")[cpuSelect],
+          cpuSelect
+        );
+
+        checkWinnerGame();
+      } else {
+        if (isFinish) return;
+
+        let index;
+
+        for (let i = 0; i < boardTiles.length; i++) {
+          if (boardTiles[i] === "") {
+            index = i;
+          }
+        }
+
+        fillCellsHandler(document.querySelectorAll(".cells")[index], index);
+
+        checkWinnerGame();
+      }
+    }
   })
 );
 
@@ -228,7 +272,7 @@ const checkWinnerGame = () => {
     return;
   }
 
-  changePLayerTurn();
+  gameMode === "1" ? changePLayerTurn() : "";
 };
 
 // change player turn
