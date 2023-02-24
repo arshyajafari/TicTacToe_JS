@@ -1,0 +1,401 @@
+@font-face {
+  font-family: "IndieFlower";
+  src: local("IndieFlower"),
+    url(../fonts/IndieFlower-Regular.ttf) format("truetype");
+}
+
+@font-face {
+  font-family: "Dosis";
+  src: local("Dosis"), url(../fonts/Dosis-Medium.ttf) format("truetype");
+}
+
+body {
+  background-color: rgb(32, 32, 32);
+  background-image: url(../imgs/black-chalk.jpg);
+  font-family: "IndieFlower";
+  color: rgb(230, 230, 230);
+}
+
+.games {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title-game {
+  font-size: 2.8em;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1em;
+  margin: 15px 0px;
+  padding: 0px 0px 5px;
+}
+
+.container {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* players box */
+
+.players {
+  font-family: "Dosis";
+  font-size: 1.4em;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+#player1 {
+  width: 130px;
+  color: rgb(233, 150, 122);
+  border: 3px solid rgb(233, 150, 122);
+  border-radius: 8px;
+  box-shadow: inset 0px 0px 10px rgba(230, 230, 230, 0.6),
+    2px 2px 10px rgba(230, 230, 230, 0.6);
+  margin: 8px 0px;
+  padding: 20px 30px;
+}
+
+#player2 {
+  width: 130px;
+  color: rgb(127, 255, 212);
+  border: 3px solid rgb(127, 255, 212);
+  border-radius: 8px;
+  box-shadow: inset 0px 0px 10px rgba(230, 230, 230, 0.6),
+    2px 2px 10px rgba(230, 230, 230, 0.6);
+  margin: 8px 0px;
+  padding: 20px 30px;
+}
+
+/* game status box */
+
+.game-status {
+  width: 400px;
+  font-family: "Dosis";
+  position: relative;
+}
+
+.game-status::before {
+  max-width: 100%;
+  background: linear-gradient(to right, rgb(233, 150, 122), rgb(127, 255, 212));
+  color: #fff;
+  content: "Game Status";
+  font-size: 1.75rem;
+  font-weight: bold;
+  text-align: left;
+  text-transform: uppercase;
+  line-height: 0.7rem;
+  display: block;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  padding: 15px 20px;
+}
+
+.game-message {
+  max-width: 100%;
+  height: 5rem;
+  background-color: #41414193;
+  font-size: 1.6rem;
+  text-align: left;
+  line-height: 1.9rem;
+  white-space: break-spaces;
+  display: block;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding: 15px 20px;
+}
+
+.icons {
+  position: absolute;
+  right: 5px;
+  bottom: 10px;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-text {
+  width: fit-content;
+  background-color: #bdbdbd;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  position: absolute;
+  top: 40px;
+  left: 0px;
+  visibility: hidden;
+  z-index: 1;
+  padding: 5px 8px;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+}
+
+.tooltip img {
+  width: 30px;
+  height: 30px;
+  margin: 0px 8px;
+  cursor: pointer;
+}
+
+/* board game */
+
+.game-body {
+  width: 370px;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  margin: 0px auto;
+}
+
+.cells {
+  width: 100px;
+  height: 100px;
+  font-size: 4.5em;
+  font-weight: bold;
+  text-align: center;
+  border: 2px solid rgb(230, 230, 230);
+  border-radius: 10px;
+  box-shadow: 3px 3px 5px rgba(230, 230, 230, 0.6);
+  margin: 5px auto;
+  cursor: pointer;
+}
+
+.cells:hover {
+  transform: scale(1.08);
+}
+
+/* alert modal and message */
+
+.alert-modal {
+  width: 450px;
+  font-family: "Dosis";
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.alert-modal::before {
+  max-width: 100%;
+  background: linear-gradient(to right, rgb(233, 150, 122), rgb(127, 255, 212));
+  color: #fff;
+  content: attr(alert-text);
+  font-size: 1.75rem;
+  font-weight: bold;
+  text-align: left;
+  text-transform: uppercase;
+  line-height: 0.7rem;
+  position: relative;
+  display: block;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  padding: 15px 20px;
+}
+
+.alert-modal img {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 9px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.alert-message {
+  max-width: 100%;
+  height: 6rem;
+  background-color: #414141ad;
+  backdrop-filter: blur(5px);
+  font-size: 1.3rem;
+  text-align: justify;
+  line-height: 1.9rem;
+  display: block;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding: 15px 20px;
+}
+
+/* prompt modal and text */
+
+.prompt-modal {
+  width: 450px;
+  visibility: visible;
+  font-family: "Dosis";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.prompt-modal::before {
+  max-width: 100%;
+  background: linear-gradient(to right, rgb(233, 150, 122), rgb(127, 255, 212));
+  color: #fff;
+  content: "Player Information";
+  font-size: 1.75rem;
+  font-weight: bold;
+  text-align: left;
+  text-transform: uppercase;
+  line-height: 0.7rem;
+  position: relative;
+  display: block;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  padding: 15px 20px;
+}
+
+.prompt-modal img {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 9px;
+  right: 20px;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.player-form {
+  max-width: 100%;
+  height: 6rem;
+  background-color: #414141ad;
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding: 15px 20px;
+}
+
+/* radio input */
+
+.radio-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0px 0px 10px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  transition: 0.3s;
+  cursor: pointer;
+  padding: 0px 16px;
+}
+
+.radio-input {
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  z-index: -1;
+}
+
+.radio-design {
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(
+    to right bottom,
+    hsl(154, 97%, 62%),
+    hsl(225, 97%, 62%)
+  );
+  border-radius: 100%;
+  margin: 0px 8px;
+}
+
+.radio-design::before {
+  width: 22px;
+  height: 22px;
+  background-color: hsl(0, 0%, 90%);
+  content: "";
+  display: inline-block;
+  border-radius: 100%;
+  transition: all 0.3s ease;
+  transform: scale(1.1);
+}
+
+.radio-input:checked + .radio-design::before {
+  transform: scale(0);
+}
+
+.radio-text {
+  font-size: 1.3rem;
+}
+
+.radio-input:checked ~ .radio-text {
+  color: hsl(0, 0%, 40%);
+}
+
+/* text input */
+
+.text-box {
+  width: 100%;
+  display: none;
+}
+
+.text-label {
+  width: 100%;
+  font-size: 1.2rem;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.text-input {
+  width: 95%;
+  font-size: 1.3rem;
+  border: 0px solid transparent;
+  border-radius: 3px;
+  margin: 8px 0px;
+  padding: 6px 10px;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.4);
+}
+
+.text-input:active,
+.text-input:focus {
+  border: 0px solid transparent;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4),
+    inset 0px 0px 2px rgba(0, 0, 0, 0.4);
+  outline: none;
+}
+
+.button-box {
+  width: 100%;
+  text-align: right;
+}
+
+#submit {
+  background-color: hsl(154, 97%, 62%);
+  font-family: "Dosis";
+  font-size: 1.12rem;
+  font-weight: 500;
+  border: 0px;
+  border-radius: 4px;
+  margin: 10px 0px 0px;
+  padding: 5px 15px;
+  box-shadow: 0px 0px 3px hsl(154, 97%, 62%);
+  cursor: pointer;
+}
+
+/* media display */
+
+@media (max-width: 900px) {
+  .games {
+    display: none;
+  }
+}
