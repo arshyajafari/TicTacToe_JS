@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe Game</title>
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <div class="games">
+      <h1 class="title-game">Tic-Tac-Toe</h1>
+      <div class="container">
+        <div class="players">
+          <p id="player1">Player 1</p>
+          <p id="player2">Player 2</p>
+        </div>
+        <div class="game-status">
+          <div class="game-message"></div>
+          <div class="icons">
+            <div class="tooltip">
+              <span class="tooltip-text">reset</span>
+              <img src="./imgs/reset.svg" alt="reset-icon" id="reset" />
+            </div>
+            <div class="tooltip">
+              <span class="tooltip-text" style="left: 3px;">info</span>
+              <img src="./imgs/information.svg" alt="info-icon" id="info" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="game-body">
+        <span class="cells" data-cell-index="0"></span>
+        <span class="cells" data-cell-index="1"></span>
+        <span class="cells" data-cell-index="2"></span>
+        <span class="cells" data-cell-index="3"></span>
+        <span class="cells" data-cell-index="4"></span>
+        <span class="cells" data-cell-index="5"></span>
+        <span class="cells" data-cell-index="6"></span>
+        <span class="cells" data-cell-index="7"></span>
+        <span class="cells" data-cell-index="8"></span>
+      </div>
+      <div class="alert-modal">
+        <img src="./imgs/error.svg" alt="close-icon" id="close-alert" />
+        <div class="alert-message"></div>
+      </div>
+      <div class="prompt-modal">
+        <img src="./imgs/error.svg" alt="close-icon" id="close-prompt" />
+        <form action="" method="post" class="player-form">
+          <div class="radio-box">
+            <label for="twoPlayer" class="radio-label">
+              <input
+                type="radio"
+                name="game-mode"
+                id="twoPlayer"
+                class="radio-input"
+                value="1"
+              />
+              <div class="radio-design"></div>
+              <div class="radio-text">Two Player</div>
+            </label>
+            <label for="withCPU" class="radio-label">
+              <input
+                type="radio"
+                name="game-mode"
+                id="withCPU"
+                class="radio-input"
+                value="2"
+              />
+              <div class="radio-design"></div>
+              <div class="radio-text">With CPU</div>
+            </label>
+          </div>
+          <div class="text-box">
+            <label for="playerOne" class="text-label">Player 1:</label>
+            <input type="text" class="text-input" id="playerOne" />
+            <label for="playerTwo" class="text-label">Player 2:</label>
+            <input type="text" class="text-input" id="playerTwo" />
+            <div class="button-box">
+              <button id="submit">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="./js/main.js"></script>
+  </body>
+</html>
