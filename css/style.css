@@ -125,7 +125,7 @@ body {
 .tooltip-text {
   width: fit-content;
   background-color: #bdbdbd;
-  color: #fff;
+  color: #333;
   text-align: center;
   border-radius: 6px;
   position: absolute;
